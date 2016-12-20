@@ -9,13 +9,13 @@
 #import "CMXMPPConstVA.h"
 
 /**主机名*/
-NSString * const xmpp_host = @"192.168.0.251";
-//NSString * const xmpp_host = @"127.0.0.1";
+//NSString * const xmpp_host = @"192.168.0.251";
+NSString * const xmpp_host = @"127.0.0.1";
 /**端口号*/
 NSUInteger  const xmpp_port = 5222;
 /**域名*/
-NSString * const xmpp_domain = @"192.168.0.251";
-//NSString * const xmpp_domain = @"127.0.0.1";
+//NSString * const xmpp_domain = @"192.168.0.251";
+NSString * const xmpp_domain = @"127.0.0.1";
 /**资源*/
 NSString * const xmpp_resource = @"usr/local/openfire";
 /**连接超时时间*/
