@@ -11,6 +11,8 @@
 		F71C9F811E07C037004D79C3 /* ChatToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C9F801E07C037004D79C3 /* ChatToolView.m */; };
 		F71C9F831E07C045004D79C3 /* ChatToolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71C9F821E07C045004D79C3 /* ChatToolView.xib */; };
 		F71C9F861E08B8A6004D79C3 /* CMChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F71C9F851E08B8A6004D79C3 /* CMChatMessage.m */; };
+		F7210D2F1E0A1999007BC246 /* CMChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7210D2E1E0A1999007BC246 /* CMChatMessageCell.m */; };
+		F7210D321E0A626B007BC246 /* CMChatMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7210D311E0A626B007BC246 /* CMChatMessageFrameModel.m */; };
 		F740B9F11DF69BB200E585CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F740B9F01DF69BB200E585CE /* main.m */; };
 		F740B9F71DF69BB200E585CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F740B9F61DF69BB200E585CE /* ViewController.m */; };
 		F740B9FA1DF69BB200E585CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F740B9F81DF69BB200E585CE /* Main.storyboard */; };
@@ -175,6 +177,10 @@
 		F71C9F821E07C045004D79C3 /* ChatToolView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatToolView.xib; sourceTree = "<group>"; };
 		F71C9F841E08B8A6004D79C3 /* CMChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChatMessage.h; sourceTree = "<group>"; };
 		F71C9F851E08B8A6004D79C3 /* CMChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChatMessage.m; sourceTree = "<group>"; };
+		F7210D2D1E0A1998007BC246 /* CMChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChatMessageCell.h; sourceTree = "<group>"; };
+		F7210D2E1E0A1999007BC246 /* CMChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChatMessageCell.m; sourceTree = "<group>"; };
+		F7210D301E0A626B007BC246 /* CMChatMessageFrameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChatMessageFrameModel.h; sourceTree = "<group>"; };
+		F7210D311E0A626B007BC246 /* CMChatMessageFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChatMessageFrameModel.m; sourceTree = "<group>"; };
 		F740B9EC1DF69BB200E585CE /* xmppframework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xmppframework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F740B9F01DF69BB200E585CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F740B9F51DF69BB200E585CE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -529,6 +535,8 @@
 			children = (
 				F71C9F841E08B8A6004D79C3 /* CMChatMessage.h */,
 				F71C9F851E08B8A6004D79C3 /* CMChatMessage.m */,
+				F7210D301E0A626B007BC246 /* CMChatMessageFrameModel.h */,
+				F7210D311E0A626B007BC246 /* CMChatMessageFrameModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -539,6 +547,8 @@
 				F71C9F7F1E07C037004D79C3 /* ChatToolView.h */,
 				F71C9F801E07C037004D79C3 /* ChatToolView.m */,
 				F71C9F821E07C045004D79C3 /* ChatToolView.xib */,
+				F7210D2D1E0A1998007BC246 /* CMChatMessageCell.h */,
+				F7210D2E1E0A1999007BC246 /* CMChatMessageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1655,6 +1665,7 @@
 				F740BBC41DF69EC200E585CE /* XMPPvCardTempModule.m in Sources */,
 				F740BBB41DF69EC200E585CE /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				F740BBB01DF69EC200E585CE /* XMPPRoomHybridStorage.m in Sources */,
+				F7210D2F1E0A1999007BC246 /* CMChatMessageCell.m in Sources */,
 				F740BBD91DF69EC200E585CE /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				F740BBB91DF69EC200E585CE /* XMPPvCard.xcdatamodeld in Sources */,
 				F71C9F811E07C037004D79C3 /* ChatToolView.m in Sources */,
@@ -1760,6 +1771,7 @@
 				F71C9F861E08B8A6004D79C3 /* CMChatMessage.m in Sources */,
 				F740BBDD1DF69EC200E585CE /* XMPPMessageArchiving.m in Sources */,
 				F740BBE61DF69EC200E585CE /* XMPPStreamManagement.m in Sources */,
+				F7210D321E0A626B007BC246 /* CMChatMessageFrameModel.m in Sources */,
 				F740BC011DF69EC300E585CE /* DDTTYLogger.m in Sources */,
 				F740BB971DF69EC200E585CE /* XMPPOutgoingFileTransfer.m in Sources */,
 				F740BBF31DF69EC200E585CE /* XMPPMessage+XEP_0333.m in Sources */,

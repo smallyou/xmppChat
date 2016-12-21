@@ -30,4 +30,10 @@
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil].firstObject;
 }
 
+/**清空发送框*/
+- (void)clearText
+{
+    self.chatTextField.text = @"";
+}
+
 @end

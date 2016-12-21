@@ -21,4 +21,5 @@
 @property(nonatomic,weak) id<ChatToolViewDelegate> delegate;
 
 + (instancetype)chatToolView;
+- (void)clearText; //清空发送框
 @end

@@ -10,6 +10,8 @@
 #import "CMXMPPBuddy.h"
 #import "ChatToolView.h"
 #import "CMChatMessage.h"
+#import "CMChatMessageCell.h"
+#import "CMChatMessageFrameModel.h"
 
 @interface ChatViewController () <UITableViewDelegate,UITableViewDataSource,ChatToolViewDelegate>
 @property(nonatomic,weak) UITableView *tableView;
@@ -41,11 +43,13 @@
     
     //接受通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessage:) name:XMPPReceiveMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
 
 }
 
 -(void)dealloc
 {
+    //移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -97,28 +101,59 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID = @"chat";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    CMChatMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        cell =  [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
+        cell =  [[CMChatMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     }
     
     // 取出模型
     CMChatMessage *message = self.messages[indexPath.row];
     
     // 赋值
-    cell.textLabel.text = [NSString stringWithFormat:@"%@:%@",message.fromStr,message.body];
+    cell.message = message;
     
     return  cell;
 }
 
-#pragma mark - UITableViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CMChatMessageFrameModel *frameModel = [[CMChatMessageFrameModel alloc]init];
+    frameModel.message  = self.messages[indexPath.row];
+    return frameModel.cellHeight;
+}
+
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
 }
 
 
 #pragma mark - 通知
+/**键盘尺寸改变时的通知*/
+- (void)keyboardFrameChanged:(NSNotification *)notice
+{
+    //UIKeyboardAnimationDurationUserInfoKey
+    CGFloat timeInterval = [notice.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue]; //时间
+    CGFloat offsetY = [notice.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y - [notice.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].origin.y;
+    [UIView animateWithDuration:timeInterval animations:^{
+        CGRect toolViewFrame = self.toolView.frame;
+        toolViewFrame.origin.y += offsetY;
+        self.toolView.frame = toolViewFrame;
+        
+        CGRect tableViewFrame = self.tableView.frame;
+        tableViewFrame.size.height += offsetY;
+        self.tableView.frame = tableViewFrame;
+    }];
+    
+    //滚动表格到最低
+    if (self.messages.count) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
+}
+
+/**收到消息时的通知*/
 - (void)receiveMessage:(NSNotification *)notice
 {
     //接收到的信息
@@ -127,11 +162,16 @@
     //解析消息
     CMChatMessage *message = [[CMChatMessage alloc]init];
     message.messageType = [xmppMessage attributeIntValueForName:xmpp_message_type]; //取出消息类型
+    message.fromToType = CMChatMessageFromToTypeYours;
     message.from = xmppMessage.from;
     message.fromStr = xmppMessage.fromStr;
     message.to = xmppMessage.to;
     message.toStr = xmppMessage.toStr;
     message.body = xmppMessage.body;
+    NSDate *now = [NSDate new];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy年MM月dd日 HH:mm:ss";
+    message.time = [formatter stringFromDate:now];
     
     //更新模型与表格
     [self.messages addObject:message];
@@ -147,15 +187,23 @@
     //构造消息
     CMChatMessage *message = [[CMChatMessage alloc]init];
     message.messageType = CMChatMessageTypeText; //文本消息
+    message.fromToType = CMChatMessageFromToTypeMe;
     message.from = [CMXMPPManager shareManager].xmppStream.myJID;
     message.fromStr = message.from.full;
     message.to = self.buddy.JID;
     message.body = text;
+    NSDate *now = [NSDate new];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy年MM月dd日 HH:mm:ss";
+    message.time = [formatter stringFromDate:now];
     
     //更新模型表格
     [self.messages addObject:message];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    
+    //清空发送框文本
+    [toolView clearText];
     
     //发送文本信息
     [[CMXMPPManager shareManager] sendTextMessageTo:self.buddy.JID message:text];

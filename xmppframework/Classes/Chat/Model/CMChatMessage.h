@@ -36,4 +36,7 @@ typedef NS_ENUM(NSInteger,CMChatMessageFromToType) {
 /**消息内容*/
 @property(nonatomic,copy) NSString *body;
 
+/**消息时间*/
+@property(nonatomic,copy) NSString *time;
+
 @end
