@@ -19,8 +19,6 @@
 /**消息内容*/
 @property(nonatomic,weak) UIButton *messageButton;
 
-/**模型frame*/
-@property(nonatomic,weak) CMChatMessageFrameModel  *frameModel;
 
 @end
 
@@ -31,14 +29,6 @@
     CGFloat _margin;
 }
 
-- (CMChatMessageFrameModel *)frameModel
-{
-    if (_frameModel == nil) {
-        _frameModel = [[CMChatMessageFrameModel alloc]init];
-    }
-    return _frameModel;
-}
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -47,6 +37,8 @@
         _timeFontSize = 12.0;
         _messageFontSize = 14.0;
         _margin = 10;
+        self.contentView.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor clearColor];
         
         //控件初始化
         UIImageView *iconImageView = [[UIImageView alloc]init];
@@ -76,7 +68,6 @@
 {
     _message = message;
     
-    self.frameModel.message = message;
     
     [self.messageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.iconImageView.image = [UIImage imageNamed:@"head_portrait_default_avatar_big"];

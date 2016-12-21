@@ -89,6 +89,7 @@
 - (void)setupUI
 {
     self.title = self.buddy.JID.full;
+    self.tableView.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
 }
 
 
