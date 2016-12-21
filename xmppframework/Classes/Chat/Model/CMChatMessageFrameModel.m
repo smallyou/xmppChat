@@ -34,7 +34,7 @@
     
     CGFloat cellW = [UIScreen mainScreen].bounds.size.width;
     
-    CGSize size = [self.message.time sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_timeFontSize]}];
+    CGSize size = [self.message.timeStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_timeFontSize]}];
     CGFloat timeW = size.width + 5;
     CGFloat timeH = size.height + 3;
     CGFloat timeX = 0.5 * (cellW - timeW);

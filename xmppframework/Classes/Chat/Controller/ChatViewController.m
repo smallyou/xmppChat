@@ -169,10 +169,7 @@
     message.to = xmppMessage.to;
     message.toStr = xmppMessage.toStr;
     message.body = xmppMessage.body;
-    NSDate *now = [NSDate new];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"yyyy年MM月dd日 HH:mm:ss";
-    message.time = [formatter stringFromDate:now];
+    message.time = [NSDate new];;
     
     //更新模型与表格
     [self.messages addObject:message];
@@ -193,10 +190,7 @@
     message.fromStr = message.from.full;
     message.to = self.buddy.JID;
     message.body = text;
-    NSDate *now = [NSDate new];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"yyyy年MM月dd日 HH:mm:ss";
-    message.time = [formatter stringFromDate:now];
+    message.time = [NSDate new];
     
     //更新模型表格
     [self.messages addObject:message];

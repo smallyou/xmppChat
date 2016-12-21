@@ -11,5 +11,13 @@
 @implementation CMChatMessage
 
 
+-(void)setTime:(NSDate *)time
+{
+    _time = time;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat  = @"yyyy年MM月dd日 HH:mm:ss";
+    self.timeStr = [formatter stringFromDate:time];
+}
 
 @end

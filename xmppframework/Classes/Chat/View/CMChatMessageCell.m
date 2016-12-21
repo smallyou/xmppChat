@@ -71,7 +71,7 @@
     
     [self.messageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.iconImageView.image = [UIImage imageNamed:@"head_portrait_default_avatar_big"];
-    self.timeLabel.text = message.time;
+    self.timeLabel.text = message.timeStr;
     
     //赋值操作
     if (message.messageType == CMChatMessageTypeText) {
